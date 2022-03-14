@@ -1,5 +1,6 @@
 .todo-wrapper {
     display: flex;
+    flex-direction: column;
 }
 
 .todo-form {
@@ -7,10 +8,14 @@
 } 
 
 .todo-input {
-    width: 300px;
+    width: 350px;
     height: 28px;
+    border-radius: 5px;
 }
 
 .todo-button {
     height: 35px;
+    margin-left: 8px;
+    background: rgb(100, 100, 206);
+    border-radius: 5px;
 }
