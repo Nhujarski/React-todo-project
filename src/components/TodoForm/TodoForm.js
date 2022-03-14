@@ -1,18 +1,33 @@
 import React, { useState } from 'react'
 import './styles.css'
+import TodoList from '../TodoList/TodoList'
 
-function TodoForm({ onSubmit }) {
+function TodoForm({ onSubmit, todo }) {
     /**
      * State
      */
-    const [input, setInput] = useState('')
+    const [input, setInput] = useState('');
+    const [error, setError] = useState(false)
 
+    // console.log("todo >>>>>> ", todo)
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit({
-            id: Math.floor(Math.random() * 1000),
-            text: input,
-        })
+        console.log('input >>. ', input)
+        console.log("todo >>>>>> ", todo)
+        if (todo.some((item) => {
+            return item.text === input
+        })) {
+            setError(true);
+            console.log('made it here!')
+            console.log(error)
+        } else {
+            onSubmit({
+                id: Math.floor(Math.random() * 1000),
+                text: input,
+            })
+            setError(false)
+        }
+
         setInput('')
     }
 
@@ -30,7 +45,8 @@ function TodoForm({ onSubmit }) {
                     setInput(e.target.value)
                 }}
                 name='text' />
-            <button className="todo-button" onClick={console.log('Clicked>>>>')}>Add Todo</button>
+            {error ? <h3 className='todo-error'>Todo already exists. Please enter another todo.</h3> : ''}
+            <button className="todo-button">Add Todo</button>
         </form>
 
     )

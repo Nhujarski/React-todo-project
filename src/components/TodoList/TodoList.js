@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import TodoForm from '../TodoForm/TodoForm'
+import Todo from '../Todo/Todo'
 import './styles.css'
 
 function TodoList() {
@@ -12,18 +13,24 @@ function TodoList() {
         const newTodos = [todo, ...todos]
         setTodos(newTodos)
     }
+
+    const checkTodo = (id) => {
+        let updatedTodos = todos.map((todo) => {
+            if (todo.id === id) {
+                todo.isChecked = !todo.isChecked
+            }
+            return todo
+        })
+        setTodos(updatedTodos)
+    }
     /**
      * Render
      */
     return (
         <div>
             <h1>What do we have to do today?</h1>
-            <TodoForm onSubmit={addTodo} />
-            {todos.map((todo) => (
-                <div className='todo-item'>
-                    <h3 id={todo.id} className='todo-text'>{todo.text}</h3>
-                </div>
-            ))}
+            <TodoForm onSubmit={addTodo} todo={todos} />
+            <Todo todos={todos} checkTodo={checkTodo} />
         </div>
     )
 }
